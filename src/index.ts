@@ -27,6 +27,16 @@ app.post('/api/token', (req: Request, res: Response) => {
 
 // text justification endpoint
 app.post('/api/justify', (req: Request, res: Response) => {
+
+    //check authentication  (using Bearer token)
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
+    const user = tokens.get(token);
+    if (!user) {
+        return res.status(401).json({ error: 'Invalid token' });
+    }
   
     const text = req.body;
     const words = text.split(/\s+/);
