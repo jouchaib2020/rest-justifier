@@ -1,5 +1,6 @@
 import bodyParser from "body-parser";
 import { Request, Response } from "express";
+import { user } from "./utlis";
 
 // Dependencies
 const express = require('express');
@@ -11,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.text());
 
 // Data storage (in-memory for simplicity)
-let tokens = new Map<string, { email: string, usedWords: number, resetTime: Date }>();
+let tokens = new Map<string, user>();
 
 // Token generation endpoint
 app.post('/api/token', (req: Request, res: Response) => {
@@ -36,6 +37,14 @@ app.post('/api/justify', (req: Request, res: Response) => {
     const user = tokens.get(token);
     if (!user) {
         return res.status(401).json({ error: 'Invalid token' });
+    }
+    
+    // check if token is still valid (1-day experation for simplicity)
+    const now = new Date();
+    const dateDiff = now.getMilliseconds()  - user.resetTime.getMilliseconds();
+    if ( dateDiff/(1000*60*60*24) > 1) {
+    user.usedWords = 0;
+    user.resetTime = now;
     }
   
     const text = req.body;
