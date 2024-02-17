@@ -38,7 +38,7 @@ app.post('/api/justify', (req: Request, res: Response) => {
     if (!user) {
         return res.status(401).json({ error: 'Invalid token' });
     }
-    
+
     // check if token is still valid (1-day experation for simplicity)
     const now = new Date();
     const dateDiff = now.getMilliseconds()  - user.resetTime.getMilliseconds();
@@ -46,7 +46,12 @@ app.post('/api/justify', (req: Request, res: Response) => {
     user.usedWords = 0;
     user.resetTime = now;
     }
+
+    if (user.usedWords >= 80000) {
+        return res.status(402).json({ error: 'Payment Required' });
+    }
   
+    // justification logic 
     const text = req.body;
     const words = text.split(/\s+/);
     const length = 80;
@@ -64,6 +69,10 @@ app.post('/api/justify', (req: Request, res: Response) => {
       }
       justifiedLines.push(line);
     }
+
+    // update user used words
+    user.usedWords += words.length;
+    tokens.set(token, user);
   
     const justifiedText = justifiedLines.join('\n');
     res.send(justifiedText);
