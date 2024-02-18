@@ -13,7 +13,6 @@ let tokens = new Map<string, user>();
 
 // Token generation endpoint
 app.post('/api/token', (req: Request, res: Response) => {
-    console.log(req.body);
   const {email} = req.body;
   if (!email) {
     return res.status(400).json({ error: 'Email required' });
@@ -76,4 +75,8 @@ app.post('/api/justify', (req: Request, res: Response) => {
 });
 
 // Start server
-app.listen(3000, () => console.log('Server listening on port 3000'));
+const port = process.env.PORT || 3001;
+app.listen(port, () => console.log(`Server listening on port ${port}`));
+
+export { app };
+
