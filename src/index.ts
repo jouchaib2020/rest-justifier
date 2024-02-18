@@ -1,10 +1,7 @@
 import bodyParser from "body-parser";
-import { Request, Response } from "express";
+import crypto from 'crypto';
+import express, { Request, Response } from "express";
 import { user } from "./utlis";
-
-// Dependencies
-const express = require('express');
-const crypto = require('crypto');
 
 // Initialize app and middleware
 const app = express();
