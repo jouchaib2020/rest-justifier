@@ -11,8 +11,8 @@ This is a Nodejs API that delivers precise text justification, built from scratc
 
 ## Get Started:
 
-- Clone the repo, install dependencies (npm install).
-- Start the server (node app.js).
+- Clone the repo, install dependencies `npm install`.
+- Start the server `node dist/index.js`.
 - Get a token: POST to `/api/token` with your email.
 
   - Request body: credentials of the user (only email for simplicity)

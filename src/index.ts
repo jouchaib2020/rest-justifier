@@ -49,6 +49,9 @@ app.post('/api/justify', (req: Request, res: Response) => {
   
     // justification logic 
     const text = req.body;
+    if (!text) {
+      return res.status(400).json({ error: 'Text required' });
+    }
     const words = text.split(/\s+/);
     const length = 80;
   
@@ -75,7 +78,7 @@ app.post('/api/justify', (req: Request, res: Response) => {
 });
 
 // Start server
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server listening on port ${port}`));
 
 export { app };
