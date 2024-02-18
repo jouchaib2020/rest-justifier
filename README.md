@@ -55,13 +55,13 @@ Bash
 ## Get token
 
 ```bash
-    curl -X POST -H "Content-Type: application/json" -d '{"email": "your_email@example.com"}' http://localhost:3000/api/token
+    curl -X POST -H "Content-Type: application/json" -d '{"email": "your_email@example.com"}' https://text-justification-fxnqz.ondigitalocean.app/api/token
 ```
 
 ## Justify text
 
 ```bash
-    curl -X POST -H "Authorization: Bearer <your_token>" -H "Content-Type: text/plain" -d 'This text needs alignment.' http://localhost:3000/api/justify
+    curl -X POST -H "Authorization: Bearer <your_token>" -H "Content-Type: text/plain" -d 'This text needs alignment.' https://text-justification-fxnqz.ondigitalocean.app//api/justify
 ```
 
 ## License:
